@@ -23,27 +23,16 @@
 .logo {
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-family: var(--font-display);
 }
 
-.icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  background: var(--brand);
-  border-radius: 6px;
-  font-weight: 800;
-  font-size: 16px;
-  box-shadow: 0 4px 12px rgba(218, 34, 101, 0.3);
+.logotipoImg {
+  height: 35px;
+  display: none;
 }
 
-.wordmark {
-  font-size: 20px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
+.wordmarkImg {
+  height: 40px;
+  display: block;
 }
 
 .cta {
@@ -75,5 +64,13 @@
 @media (max-width: 768px) {
   .header {
     padding: 0 24px;
+  }
+  
+  .logotipoImg {
+    display: block;
+  }
+  
+  .wordmarkImg {
+    display: none;
   }
 }

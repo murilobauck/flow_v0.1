@@ -5,7 +5,9 @@ import styles from './Hero.module.css';
 const vagas = [
   "Estágio em TI — Suporte Técnico, empresa de médio porte",
   "Estágio em Enfermagem — UBS, foco em acolhimento",
-  "Estágio em Administração — Empresa Júnior, atendimento ao cliente"
+  "Estágio Administrativo — Rotinas gerais, escritório de RH",
+  "Estágio em Segurança do Trabalho — Inspeção, construtora",
+  "Estágio em Eletrotécnica — Manutenção de painéis, fábrica"
 ];
 
 const containerVariants = {
@@ -21,6 +23,55 @@ const containerVariants = {
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } }
+};
+
+const CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*!^~";
+
+const DecoderText = ({ text }: { text: string }) => {
+  const [displayText, setDisplayText] = useState(text);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    let timeout: NodeJS.Timeout;
+
+    const animate = () => {
+      let iteration = 0;
+      clearInterval(interval);
+
+      interval = setInterval(() => {
+        setDisplayText((current) =>
+          text
+            .split("")
+            .map((letter, index) => {
+              if (index < iteration) {
+                return text[index];
+              }
+              if (text[index] === " ") {
+                return " ";
+              }
+              return CHARACTERS[Math.floor(Math.random() * CHARACTERS.length)];
+            })
+            .join("")
+        );
+
+        if (iteration >= text.length) {
+          clearInterval(interval);
+          timeout = setTimeout(animate, 5000);
+        }
+
+        iteration += 1 / 3;
+      }, 30);
+    };
+
+    animate();
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeout);
+    };
+  }, [text]);
+
+  return <>{displayText}</>;
 };
 
 export const Hero = () => {
@@ -61,13 +112,15 @@ export const Hero = () => {
         viewport={{ once: true, amount: 0.2 }}
       >
         <motion.h1 variants={itemVariants} className={styles.title}>
-          Você tem o perfil.<br />
-          Só falta treinar para a{' '}
-          <span className={styles.heroAccent}>entrevista</span>.
+          A vaga exige preparo.<br />
+          Nós te damos{' '}
+          <span className={styles.heroAccent}>
+            <DecoderText text="clareza nas ideias." />
+          </span>
         </motion.h1>
         
         <motion.p variants={itemVariants} className={styles.subtitle}>
-          Cole os detalhes da vaga que você quer e deixe o Flow simular o recrutador. Treine sob pressão real, receba feedbacks imediatos e conquiste seu estágio.
+          Simule o recrutador com Inteligência Artificial. Ganhe confiança sob pressão e aprenda a se virar na hora da entrevista.
         </motion.p>
         
         <motion.div variants={itemVariants} className={styles.ctaGroup}>
@@ -86,6 +139,11 @@ export const Hero = () => {
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8, delay: 0.4 }}
         viewport={{ once: true }}
+        drag
+        dragSnapToOrigin={true}
+        dragElastic={0.6}
+        whileDrag={{ scale: 1.02, cursor: "grabbing", boxShadow: "0 24px 60px rgba(0,0,0,0.6)" }}
+        style={{ cursor: "grab" }}
       >
         <div className={styles.mockupHeader}>
           <div className={styles.dots}>

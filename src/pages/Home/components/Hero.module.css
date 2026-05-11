@@ -47,9 +47,9 @@
 
 .title {
   font-family: var(--font-display);
-  font-size: 56px;
-  font-weight: 800;
-  line-height: 1.1;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.15;
   margin-bottom: 24px;
   color: var(--text-primary);
   letter-spacing: -0.02em;
@@ -58,6 +58,7 @@
 .heroAccent {
   color: var(--brand);
   text-shadow: 0 0 40px rgba(218, 34, 101, 0.4);
+  white-space: nowrap;
 }
 
 .subtitle {
@@ -213,7 +214,7 @@
 }
 
 @media (max-width: 1024px) {
-  .title { font-size: 56px; }
+  .title { font-size: 40px; }
 }
 
 @media (max-width: 768px) {
@@ -224,7 +225,7 @@
   }
   
   .title {
-    font-size: 40px;
+    font-size: 34px;
   }
   
   .ctaGroup {

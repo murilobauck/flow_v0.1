@@ -16,8 +16,8 @@ export const Header = () => {
   return (
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
       <div className={styles.logo}>
-        <span className={styles.icon}>F</span>
-        <span className={styles.wordmark}>Flow</span>
+        <img src="/logotipo.svg" alt="Flow" className={styles.logotipoImg} />
+        <img src="/wordmark.svg" alt="Flow" className={styles.wordmarkImg} />
       </div>
       <Link to="#waitlist" className={styles.cta} onClick={(e) => {
         e.preventDefault();
