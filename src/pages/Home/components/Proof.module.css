@@ -7,141 +7,98 @@
 .header {
   text-align: center;
   max-width: 720px;
-  margin: 0 auto 64px;
+  margin: 0 auto 80px;
 }
 
 .title {
-  font-size: 40px;
+  font-size: 48px;
   margin-bottom: 24px;
 }
 
-.subtitle {
-  color: var(--text-secondary);
-  font-size: 16px;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-bottom: 80px;
-}
-
-.card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 16px;
-  padding: 28px 28px 32px;
-  position: relative;
-  overflow: hidden;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+/* Timeline Layout */
+.timeline {
   display: flex;
   flex-direction: column;
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto 120px;
 }
 
-.featured {
-  grid-column: span 3;
+/* The vertical line in the center */
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--brand) 15%, var(--brand) 85%, transparent);
+  transform: translateX(-50%);
+  opacity: 0.3;
+}
+
+.timelineStep {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 40px;
-  padding: 48px;
-}
-
-.featured h3 {
-  font-size: 32px;
-}
-
-.ordinal {
-  position: absolute;
-  top: 20px;
-  right: 24px;
-  font-size: 80px;
-  font-weight: 800;
-  color: var(--brand);
-  opacity: 0.05;
-  line-height: 1;
-  pointer-events: none;
-  transition: opacity 0.25s;
-  font-family: var(--font-display);
-}
-
-.card:hover {
-  border-color: rgba(218, 34, 101, 0.45);
-  box-shadow: var(--glow-brand-sm);
-  transform: translateY(-4px);
-}
-
-.card:hover .ordinal {
-  opacity: 0.12;
-}
-
-.card h3 {
-  font-size: 24px;
-  margin-bottom: 16px;
-  position: relative;
-  z-index: 1;
-}
-
-.card p {
-  color: var(--text-secondary);
-  font-size: 15px;
-  position: relative;
-  z-index: 1;
-  flex: 1;
-}
-
-.marqueeWrapper {
-  overflow: hidden;
-  mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    black 8%,
-    black 92%,
-    transparent 100%
-  );
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    black 8%,
-    black 92%,
-    transparent 100%
-  );
-  margin: 40px 0;
   width: 100%;
 }
 
-.marqueeTrack {
+.stepContent {
   display: flex;
-  gap: 36px;
-  white-space: nowrap;
-  animation: marquee 38s linear infinite;
-  width: max-content;
+  flex-direction: column;
+  justify-content: center;
 }
 
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+.left .stepContent {
+  grid-column: 1;
+  text-align: right;
+  padding: 80px 80px 80px 0;
+  align-items: flex-end;
 }
 
-.marqueeItem {
-  font-size: 12px;
-  color: var(--text-tertiary);
-  letter-spacing: 0.04em;
-  display: flex;
-  align-items: center;
-  gap: 36px;
+.right .stepContent {
+  grid-column: 2;
+  text-align: left;
+  padding: 80px 0 80px 80px;
+  align-items: flex-start;
 }
 
-.marqueeSep {
+.stepNumber {
+  font-family: monospace;
+  font-size: 24px;
   color: var(--brand);
-  opacity: 0.5;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.left .stepNumber {
+  margin-bottom: 0;
+  margin-left: 16px;
+  position: relative;
+  top: -6px;
+}
+
+.stepTitle {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--text-primary);
+  margin-bottom: 24px;
+  letter-spacing: -0.03em;
+}
+
+.stepDescription {
+  font-size: 18px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 420px;
 }
 
 .testimonial {
   text-align: center;
   max-width: 640px;
-  margin: 80px auto 0;
+  margin: 0 auto;
   padding: 40px;
   border-radius: 16px;
   background: var(--bg-surface);
@@ -164,13 +121,14 @@
 }
 
 @media (max-width: 1024px) {
-  .grid {
-    grid-template-columns: 1fr;
+  .stepTitle {
+    font-size: 36px;
   }
-  .featured {
-    grid-column: span 1;
-    grid-template-columns: 1fr;
-    padding: 28px 28px 32px;
+  .left .stepContent {
+    padding: 60px 40px 60px 0;
+  }
+  .right .stepContent {
+    padding: 60px 0 60px 40px;
   }
 }
 
@@ -179,6 +137,35 @@
     padding: 80px 24px;
   }
   .title {
-    font-size: 32px;
+    font-size: 36px;
+  }
+  
+  .timeline::before {
+    left: 24px;
+    transform: none;
+  }
+  
+  .timelineStep {
+    grid-template-columns: 1fr;
+  }
+  
+  .left .stepContent,
+  .right .stepContent {
+    grid-column: 1;
+    text-align: left;
+    align-items: flex-start;
+    padding: 40px 0 40px 64px;
+  }
+  
+  .left .stepTitle {
+    /* For mobile, we want the number to be above like in the right step */
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  
+  .left .stepNumber {
+    margin-left: 0;
+    margin-bottom: 12px;
+    top: 0;
   }
 }

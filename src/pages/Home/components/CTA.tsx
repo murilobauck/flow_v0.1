@@ -3,14 +3,15 @@ import { motion } from 'framer-motion';
 import styles from './CTA.module.css';
 
 export const CTA = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
+    if (name && email) {
       setSubmitted(true);
-      // Aqui integraria com backend (Resend, Airtable, etc.)
+      // Aqui integraria com backend
     }
   };
 
@@ -25,7 +26,12 @@ export const CTA = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        <div className={styles.exclusivityBadge}>Seja um dos primeiros a testar</div>
+        <button 
+          className={styles.exclusivityBadge} 
+          onClick={() => document.getElementById('nameInput')?.focus()}
+        >
+          Seja um dos primeiros a testar
+        </button>
         
         <div className={styles.eyebrow}>Programa Demo · Lista de espera aberta</div>
         <h2 className={styles.title}>Entre na fila. Você vai querer ter feito isso.</h2>
@@ -34,19 +40,19 @@ export const CTA = () => {
         </p>
         
         <div className={styles.benefitsContainer}>
-          <div className={styles.label}>O que você garante ao se inscrever agora:</div>
+          <div className={styles.label}>O que os primeiros ganham:</div>
           <ul className={styles.benefitList}>
             <li className={styles.benefitItem}>
-              <span className={styles.benefitBullet}>✦</span> Acesso prioritário quando o demo abrir
+              <span className={styles.benefitBullet}>✦</span> Acesso VIP antes da plataforma ir a público
             </li>
             <li className={styles.benefitItem}>
-              <span className={styles.benefitBullet}>✦</span> Teste gratuito e completo
+              <span className={styles.benefitBullet}>✦</span> Testes ilimitados e 100% gratuitos na fase Demo
             </li>
             <li className={styles.benefitItem}>
-              <span className={styles.benefitBullet}>✦</span> Canal direto para dar feedback
+              <span className={styles.benefitBullet}>✦</span> Linha direta com nossa equipe para feedbacks
             </li>
             <li className={styles.benefitItem}>
-              <span className={styles.benefitBullet}>✦</span> Influência no roadmap do produto
+              <span className={styles.benefitBullet}>✦</span> Poder de decisão sobre quais áreas e vagas vamos criar
             </li>
           </ul>
         </div>
@@ -63,7 +69,18 @@ export const CTA = () => {
           </motion.div>
         ) : (
           <form onSubmit={handleSubmit} className={styles.form}>
+            <p className={styles.fomoLabel}>Vagas <strong>limitadas.</strong> Garanta já a sua.</p>
             <input 
+              id="nameInput"
+              className={styles.emailInput} 
+              type="text" 
+              placeholder="Seu nome" 
+              required 
+              value={name}
+              onChange={e => setName(e.target.value)}
+            />
+            <input 
+              id="emailInput"
               className={styles.emailInput} 
               type="email" 
               placeholder="seu@email.com" 

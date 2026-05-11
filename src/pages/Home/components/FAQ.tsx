@@ -1,78 +1,105 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import styles from './FAQ.module.css';
 
 const faqs = [
   {
-    question: "Quando o Programa Demo vai estar disponível?",
-    answer: "Ainda estamos em desenvolvimento. A lista de espera garante que você será avisado assim que o demo abrir — antes de qualquer divulgação pública. Não temos uma data exata, mas você vai ser o primeiro a saber."
+    question: "Em quanto tempo vejo resultados?",
+    answer: "A evolução é imediata. Após a primeira simulação, você já recebe um diagnóstico apontando onde falhou e como melhorar. Com 3 a 5 treinos focados na sua vaga, sua confiança e familiaridade sob pressão aumentam drasticamente."
   },
   {
-    question: "Funciona para quem faz Técnico em Administração, Enfermagem, Mecânica...?",
-    answer: "Sim — e esse é exatamente o ponto. O Flow não foi feito só para a área de tecnologia. Qualquer curso técnico que exige processos seletivos está no escopo: saúde, gestão, indústria, logística, design. Se tem entrevista, o Flow treina."
+    question: "Qualquer pessoa pode usar?",
+    answer: "Sim, mas nosso foco principal são alunos e profissionais em início de carreira. O Flow foi desenhado especialmente para quem está buscando o primeiro estágio ou vaga júnior. Ele te ajuda a compensar a falta de experiência profissional mostrando preparo, atitude e capacidade de organização."
   },
   {
-    question: "Posso treinar para uma vaga específica que já encontrei?",
-    answer: "Sim. Essa é uma das principais funcionalidades. Você vai inserir os detalhes da vaga — cargo, empresa, área e descrição — e o recrutador IA vai se adaptar àquele contexto. As perguntas, o tom e o nível de pressão mudam de acordo."
+    question: "Qual a diferença de vocês para o ChatGPT?",
+    answer: "O ChatGPT é uma ferramenta genérica. O Flow é um ambiente imersivo de treinamento. Ele simula a pressão real de uma entrevista, adapta o comportamento do recrutador e avalia sua postura — ensinando você a se virar, e não a decorar roteiros."
   },
   {
-    question: "Nunca trabalhei. O Flow consegue me ajudar mesmo assim?",
-    answer: "Sim. A maioria dos usuários do Flow está exatamente nessa situação. A plataforma foi desenhada para quem não tem histórico profissional e precisa aprender a apresentar potencial, não experiência."
+    question: "Como a IA avalia o meu desempenho?",
+    answer: "A nossa inteligência analisa fatores como a clareza da sua fala, objetividade, linguagem adequada para a área e tempo de resposta. No final de cada simulação, você recebe um placar destacando seus pontos fortes e as áreas onde sua argumentação pode melhorar."
   },
   {
-    question: "O Programa Demo vai ser pago?",
-    answer: "Não. O acesso ao Programa Demo será completamente gratuito. Em troca, pedimos feedback honesto que vai moldar o produto. Você treina sem pagar nada — a gente aprende com você."
+    question: "Preciso instalar algum aplicativo?",
+    answer: "Não. O Flow funciona 100% direto no seu navegador, tanto no celular quanto no computador. Basta fazer login, colar a descrição da sua vaga e começar a simular a entrevista na hora."
+  },
+  {
+    question: "Quando o programa demo estará disponível?",
+    answer: "Ainda estamos em desenvolvimento intensivo. Entrando na nossa lista de espera hoje, você garante acesso prioritário, gratuito e em primeira mão assim que abrirmos a plataforma."
   }
 ];
 
 export const FAQ = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggle = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      toggle(index);
-    } else if (e.key === 'Escape') {
-      setOpenIndex(null);
-    }
-  };
-
   return (
-    <section className={styles.faqSection}>
-      <h2 className={styles.title}>Dúvidas que você teria vergonha de mandar no direct.</h2>
-      
-      <div className={styles.faqWrapper}>
-        {faqs.map((faq, i) => {
-          const isOpen = openIndex === i;
-          
-          return (
-            <div key={i} className={`${styles.faqItem} ${isOpen ? styles.open : ''}`}>
-              <button
-                id={`faq-trigger-${i}`}
-                aria-expanded={isOpen}
-                aria-controls={`faq-content-${i}`}
-                className={styles.faqTrigger}
-                onClick={() => toggle(i)}
-                onKeyDown={(e) => handleKeyDown(e, i)}
+    <section id="faq" className={styles.faqSection}>
+      <div className={styles.container}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className={styles.header}
+        >
+          <p className={styles.subheader}>Perguntas frequentes</p>
+          <h2 className={styles.title}>Tire suas dúvidas</h2>
+        </motion.div>
+
+        <div className={styles.faqList}>
+          {faqs.map((faq, i) => {
+            const isOpen = openIndex === i;
+            
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05, duration: 0.4 }}
+                className={styles.faqItem}
               >
-                {faq.question}
-                <span className={styles.faqIcon} aria-hidden="true">+</span>
-              </button>
-              
-              <div
-                id={`faq-content-${i}`}
-                role="region"
-                aria-labelledby={`faq-trigger-${i}`}
-                className={`${styles.faqContent} ${isOpen ? styles.open : ''}`}
-              >
-                <p className={styles.faqAnswer}>{faq.answer}</p>
-              </div>
-            </div>
-          );
-        })}
+                <button
+                  onClick={() => toggle(i)}
+                  className={`${styles.faqTrigger} ${isOpen ? styles.open : ''}`}
+                >
+                  <span className={styles.question}>{faq.question}</span>
+                  <div className={styles.iconWrapper}>
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 14 14"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      className={`${styles.icon} ${isOpen ? styles.iconOpen : ''}`}
+                    >
+                      <line x1="7" y1="1" x2="7" y2="13" />
+                      <line x1="1" y1="7" x2="13" y2="7" />
+                    </svg>
+                  </div>
+                </button>
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className={styles.faqContentWrapper}
+                    >
+                      <p className={styles.faqAnswer}>{faq.answer}</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
