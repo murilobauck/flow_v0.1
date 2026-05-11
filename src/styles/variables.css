@@ -1,13 +1,44 @@
-/* Design Tokens */
-:root {
-  /* Colors */
-  --color-primary: #0f172a;
-  --color-primary-hover: #1e293b;
-  --color-surface-hover: #f8fafc;
-  --color-border: #e2e8f0;
-  --color-background: #f1f5f9;
-  --color-text: #334155;
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&display=swap');
 
-  /* Typography */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+:root {
+  --font-display: 'Syne', sans-serif;
+  --font-body:    'Syne', sans-serif;
+
+  /* ===================== */
+  /* FUNDOS                */
+  /* ===================== */
+  --bg-page:    #080808;   /* fundo global — quase preto */
+  --bg-card:    #0D0D0D;   /* cards e painéis */
+  --bg-surface: #111111;   /* superfícies elevadas */
+  --bg-input:   #0F0F0F;   /* inputs de formulário */
+
+  /* ===================== */
+  /* BORDAS                */
+  /* ===================== */
+  --border-subtle:  #1A1A1A;
+  --border-default: #222222;
+  --border-strong:  #333333;
+
+  /* ===================== */
+  /* TEXTO                 */
+  /* ===================== */
+  --text-primary:   #FFFFFF;
+  --text-secondary: #A0A0A0;
+  --text-tertiary:  #555555;
+
+  /* ===================== */
+  /* MARCA                 */
+  /* ===================== */
+  --brand:        #DA2265;   /* cor principal — CTAs, destaques, bullets */
+  --brand-mid:    #FF4D7A;   /* meio do gradiente decorativo */
+  --brand-accent: #FE8F2A;   /* laranja — apenas em gradientes decorativos */
+
+  /* Gradiente decorativo */
+  --gradient-deco: linear-gradient(135deg, #DA2265 0%, #FF4D7A 50%, #FE8F2A 100%);
+  --gradient-deco-90: linear-gradient(90deg, #DA2265 0%, #FF4D7A 50%, #FE8F2A 100%);
+
+  /* Glows */
+  --glow-brand:    0 0 24px rgba(218, 34, 101, 0.50);
+  --glow-brand-lg: 0 0 60px rgba(218, 34, 101, 0.20);
+  --glow-brand-sm: 0 0 12px rgba(218, 34, 101, 0.35);
 }
