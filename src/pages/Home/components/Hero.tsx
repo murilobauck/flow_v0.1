@@ -60,18 +60,14 @@ export const Hero = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
       >
-        <motion.div variants={itemVariants} className={styles.eyebrow}>
-          Flow · AI Interview Coach · <span className={styles.badgeSoon}>Em breve</span>
-        </motion.div>
-        
         <motion.h1 variants={itemVariants} className={styles.title}>
-          Você sabe o que fazer.<br />
-          Mas nunca treinou para a{' '}
+          Você tem o perfil.<br />
+          Só falta treinar para a{' '}
           <span className={styles.heroAccent}>entrevista</span>.
         </motion.h1>
         
         <motion.p variants={itemVariants} className={styles.subtitle}>
-          O Flow simula entrevistas de estágio com IA — para qualquer curso técnico. Você coloca os detalhes da vaga, e o recrutador se adapta. Feedback real. Pressão real. Antes da hora real.
+          Cole os detalhes da vaga que você quer e deixe o Flow simular o recrutador. Treine sob pressão real, receba feedbacks imediatos e conquiste seu estágio.
         </motion.p>
         
         <motion.div variants={itemVariants} className={styles.ctaGroup}>
@@ -108,7 +104,6 @@ export const Hero = () => {
           <div className={styles.recruiterMessage}>
             "Me conta sobre um momento em que você precisou resolver um problema sem ajuda. O que você fez?"
           </div>
-          <div className={styles.userCursor}>▋</div>
         </div>
       </motion.div>
     </section>

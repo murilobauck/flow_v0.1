@@ -75,7 +75,7 @@ export const Proof = () => {
         <blockquote>
           "Finalmente algo pensado pra quem tá começando do zero, não pra quem já tem 3 anos de experiência."
         </blockquote>
-        <cite>— Beta tester · Técnico em Administração</cite>
+        <cite>— Murilo Bauck · Técnico em Desenvolvimento de Sistemas</cite>
       </motion.div>
     </section>
   );
