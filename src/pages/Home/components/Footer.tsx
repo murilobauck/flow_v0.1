@@ -7,18 +7,17 @@ export const Footer = () => {
       
       <div className={styles.container}>
         <div className={styles.topContent}>
-          <div className={styles.taglineWrapper}>
+          <div className={styles.brandWrapper}>
             <h2 className={styles.tagline}>
-              Sua primeira vaga começa com a primeira{' '}
+              Sua vaga começa na primeira{' '}
               <span className={styles.accent}>entrevista</span>{' '}
-              que você não vai travar.
+              que você dominar.
             </h2>
-            <p className={styles.subline}>O Flow está chegando.</p>
           </div>
           
           <div className={styles.ctaWrapper}>
             <a href="#waitlist" className={styles.btnGhost}>
-              Entrar para a lista de espera
+              Garantir acesso antecipado
             </a>
           </div>
         </div>
@@ -27,8 +26,8 @@ export const Footer = () => {
         
         <div className={styles.bottomContent}>
           <div className={styles.leftInfo}>
-            <span className={styles.copyright}>© 2025 Flow</span>
-            <span className={styles.brandNote}>Feito por pessoas que também travaram em entrevistas importantes.</span>
+            <span className={styles.copyright}>© 2026 Flow</span>
+            <span className={styles.brandNote}>Feito por quem já suou frio antes de uma entrevista.</span>
           </div>
           
           <div className={styles.links}>
