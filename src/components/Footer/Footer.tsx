@@ -1,4 +1,5 @@
 import styles from './Footer.module.css';
+import { Link } from 'react-router-dom';
 
 export const Footer = () => {
   return (
@@ -16,7 +17,7 @@ export const Footer = () => {
           </div>
           
           <div className={styles.ctaWrapper}>
-            <a href="#waitlist" className={styles.btnGhost}>
+            <a href="/#waitlist" className={styles.btnGhost}>
               Garantir acesso antecipado
             </a>
           </div>
@@ -31,9 +32,9 @@ export const Footer = () => {
           </div>
           
           <div className={styles.links}>
-            <a href="#">Privacidade</a>
-            <a href="#">Termos</a>
-            <a href="#">Contato</a>
+            <Link to="/privacidade">Privacidade</Link>
+            <Link to="/termos">Termos</Link>
+            <a href="mailto:contato@flow.com">Contato</a>
           </div>
         </div>
       </div>

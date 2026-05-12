@@ -1,0 +1,122 @@
+.gameCtaSection {
+  position: relative;
+  overflow: hidden;
+  padding: 120px 24px;
+}
+
+.card {
+  position: relative;
+  max-width: 640px;
+  width: 100%;
+  margin: 0 auto;
+  background: var(--bg-card);
+  border-radius: 24px;
+  padding: 48px;
+  text-align: center;
+  z-index: 1;
+}
+
+@property --angle-game {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* Borda girando */
+.card::after {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  border-radius: 25.5px;
+  background: conic-gradient(
+    from var(--angle-game),
+    #DA2265, #FF4D7A, #FE8F2A, #FF4D7A, #DA2265
+  );
+  z-index: -2;
+  animation: rotateBorderGame 5s linear infinite;
+  filter: blur(1px);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 1.5px;
+  border-radius: 23px;
+  background: var(--bg-card);
+  z-index: -1;
+}
+
+@keyframes rotateBorderGame {
+  to { --angle-game: 360deg; }
+}
+
+.eyebrow {
+  color: var(--brand);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+}
+
+.title {
+  color: var(--text-primary);
+  font-size: 36px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+.description {
+  color: var(--text-secondary);
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.description strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.btnPlay {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--brand);
+  color: #fff;
+  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 16px;
+  padding: 16px 32px;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: var(--glow-brand);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btnPlay:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--glow-brand), var(--glow-brand-lg);
+}
+
+.btnPlay:active {
+  transform: scale(0.97);
+}
+
+@media (max-width: 768px) {
+  .gameCtaSection {
+    padding: 80px 24px;
+  }
+  .title {
+    font-size: 28px;
+  }
+  .card {
+    padding: 32px 24px;
+  }
+}
+

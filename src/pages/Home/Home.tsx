@@ -1,10 +1,9 @@
-import { GrainOverlay } from './components/GrainOverlay';
-import { Header } from './components/Header';
-import { Hero } from './components/Hero';
-import { Proof } from './components/Proof';
-import { CTA } from './components/CTA';
-import { FAQ } from './components/FAQ';
-import { Footer } from './components/Footer';
+import { GrainOverlay, Header, Footer } from '@/components';
+import { Hero } from './components/Hero/Hero';
+import { Proof } from './components/Proof/Proof';
+import { CTA } from './components/CTA/CTA';
+import { GameCTA } from './components/GameCTA/GameCTA';
+import { FAQ } from './components/FAQ/FAQ';
 
 export const Home = () => {
   return (
@@ -17,6 +16,7 @@ export const Home = () => {
         <Hero />
         <Proof />
         <CTA />
+        <GameCTA />
         <FAQ />
       </main>
       

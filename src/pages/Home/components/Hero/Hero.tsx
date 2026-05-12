@@ -25,28 +25,28 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } }
 };
 
-const CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*!^~";
+const CHARACTERS = "ABZCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*!^~";
 
 const DecoderText = ({ text }: { text: string }) => {
   const [displayText, setDisplayText] = useState(text);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
-    let timeout: NodeJS.Timeout;
+    let interval: ReturnType<typeof setInterval>;
+    let timeout: ReturnType<typeof setTimeout>;
 
     const animate = () => {
       let iteration = 0;
       clearInterval(interval);
 
       interval = setInterval(() => {
-        setDisplayText((current) =>
+        setDisplayText(() =>
           text
             .split("")
             .map((letter, index) => {
               if (index < iteration) {
-                return text[index];
+                return letter;
               }
-              if (text[index] === " ") {
+              if (letter === " ") {
                 return " ";
               }
               return CHARACTERS[Math.floor(Math.random() * CHARACTERS.length)];
