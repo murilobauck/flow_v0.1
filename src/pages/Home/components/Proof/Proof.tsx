@@ -74,8 +74,6 @@ export const Proof = () => {
         })}
       </div>
 
-      </div>
-
       {/* Box de depoimento do desenvolvedor/usuário (Social Proof) */}
       <motion.div 
         className={styles.testimonial}
