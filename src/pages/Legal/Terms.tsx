@@ -3,6 +3,7 @@ import styles from './Legal.module.css';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+// Componente estático para a página de Termos de Uso
 export const Terms = () => {
   useEffect(() => {
     window.scrollTo(0, 0);

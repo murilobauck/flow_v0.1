@@ -1,10 +1,12 @@
+// Tipagem para a estrutura de cada pergunta do Mini-Game
 export interface Question {
   id: number;
   question: string;
   options: string[];
-  correct_index: number;
+  correct_index: number; // Índice base 0 da opção correta no array de opções
 }
 
+// Banco de dados em memória contendo todas as perguntas possíveis do Desafio Flow
 export const questions: Question[] = [
   { id: 1, question: "Qual é a fórmula química da água?", options: ["H2O", "CO2", "NaCl", "O2"], correct_index: 0 },
   { id: 2, question: "Qual é o maior planeta do nosso sistema solar?", options: ["Terra", "Marte", "Júpiter", "Saturno"], correct_index: 2 },

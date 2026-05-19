@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import styles from './Hero.module.css';
 
+// Lista de vagas para a animação de máquina de escrever (Typewriter) no mockup
 const vagas = [
   "Estágio em TI — Suporte Técnico, empresa de médio porte",
   "Estágio em Enfermagem — UBS, foco em acolhimento",
@@ -10,12 +11,13 @@ const vagas = [
   "Estágio em Eletrotécnica — Manutenção de painéis, fábrica"
 ];
 
+// Variantes de animação do Framer Motion para orquestrar a entrada dos elementos
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15
+      staggerChildren: 0.15 // Anima os filhos com um atraso entre eles
     }
   }
 };
@@ -25,8 +27,10 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } }
 };
 
+// Caracteres usados no efeito "Glitch/Decoder"
 const CHARACTERS = "ABZCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*!^~";
 
+// Componente visual que decodifica o texto (efeito Cyberpunk/Hacker)
 const DecoderText = ({ text }: { text: string }) => {
   const [displayText, setDisplayText] = useState(text);
 
@@ -74,25 +78,30 @@ const DecoderText = ({ text }: { text: string }) => {
   return <>{displayText}</>;
 };
 
+// Seção principal do topo da página (Hero)
 export const Hero = () => {
+  // Controle de estado da animação de digitação (Typewriter)
   const [vagaIndex, setVagaIndex] = useState(0);
   const [typewriterText, setTypewriterText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
 
+  // Lógica da máquina de escrever
   useEffect(() => {
     const timeout = setTimeout(() => {
       const currentVaga = vagas[vagaIndex];
       
       if (!isDeleting) {
+        // Adicionando letras
         setTypewriterText(currentVaga.substring(0, typewriterText.length + 1));
         if (typewriterText === currentVaga) {
-          setTimeout(() => setIsDeleting(true), 2000);
+          setTimeout(() => setIsDeleting(true), 2000); // Pausa ao completar a frase
         }
       } else {
+        // Apagando letras
         setTypewriterText(currentVaga.substring(0, typewriterText.length - 1));
         if (typewriterText === "") {
           setIsDeleting(false);
-          setVagaIndex((prev) => (prev + 1) % vagas.length);
+          setVagaIndex((prev) => (prev + 1) % vagas.length); // Passa para a próxima vaga
         }
       }
     }, isDeleting ? 30 : 60);
@@ -102,8 +111,10 @@ export const Hero = () => {
 
   return (
     <section className={styles.heroSection}>
+      {/* Background animado em formato de bolha (blob) */}
       <div className={styles.heroBlob} />
       
+      {/* Container de textos com animação coordenada pelo Framer Motion */}
       <motion.div 
         className={styles.heroContent}
         variants={containerVariants}
@@ -133,6 +144,8 @@ export const Hero = () => {
         </motion.div>
       </motion.div>
 
+      {/* Janela de Mockup simulando a interface da Inteligência Artificial */}
+      {/* Possui suporte a drag (arrastar) para aumentar a interatividade */}
       <motion.div 
         className={styles.mockupGhost}
         initial={{ opacity: 0, x: 20 }}

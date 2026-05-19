@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './FAQ.module.css';
 
+// Lista estática de perguntas frequentes para popular o componente de acordeão (Accordion)
 const faqs = [
   {
     question: "Em quanto tempo vejo resultados?",
@@ -29,9 +30,12 @@ const faqs = [
   }
 ];
 
+// Componente FAQ (Frequently Asked Questions) usando padrão Accordion
 export const FAQ = () => {
+  // Guarda o índice da pergunta atualmente aberta (apenas uma por vez)
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
+  // Alterna o estado da pergunta: se clicar na aberta, fecha; se clicar em outra, abre
   const toggle = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };

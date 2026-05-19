@@ -3,40 +3,53 @@ import { useNavigate } from 'react-router-dom';
 import { questions, type Question } from './data/questions';
 import styles from './Game.module.css';
 
+// Estados possíveis da máquina de estados do jogo
 type GameState = 'GATE_NAME' | 'PLAYING' | 'FEEDBACK' | 'END';
 
+// Estrutura do Leaderboard
 interface RankingEntry {
   name: string;
   score: number;
-  timestamp: number;
+  timestamp: number; // Usado para desempate (quem fez primeiro)
 }
 
+// Tempo total por pergunta (10 segundos)
 const TOTAL_TIME_MS = 10000;
 
+// Componente principal do Mini-Game (Desafio Flow)
 export const Game = () => {
+  // Navegação
   const navigate = useNavigate();
+  // Estado que controla em qual tela do jogo estamos
   const [gameState, setGameState] = useState<GameState>('GATE_NAME');
   
+  // Nome do jogador (usado no Leaderboard)
   const [name, setName] = useState('');
   
+  // Controle das perguntas e pontuação
   const [currentRunQuestions, setCurrentRunQuestions] = useState<Question[]>([]);
   const [currentQIndex, setCurrentQIndex] = useState(0);
   const [totalScore, setTotalScore] = useState(0);
-  const totalScoreRef = useRef(0);
+  const totalScoreRef = useRef(0); // Referência mutável para acessar no loop de animação sem causar re-render
   
+  // Sistema de Combo (Multiplicador de pontos)
   const [multiplier, setMultiplier] = useState(1.0);
   const multiplierRef = useRef(1.0);
   
+  // Controles de UI temporários da pergunta atual
   const [showOptions, setShowOptions] = useState(false);
   const [timeLeft, setTimeLeft] = useState(TOTAL_TIME_MS);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [feedbackScore, setFeedbackScore] = useState<number | null>(null);
   
+  // Estado global do ranking (Leaderboard)
   const [ranking, setRanking] = useState<RankingEntry[]>([]);
 
+  // Referências para o timer (requestAnimationFrame)
   const timerRef = useRef<number | null>(null);
   const startTimeRef = useRef<number | null>(null);
 
+  // Carrega o ranking do localStorage na montagem
   useEffect(() => {
     const saved = localStorage.getItem('flow_game_ranking_v2');
     if (saved) {
@@ -44,42 +57,51 @@ export const Game = () => {
     }
   }, []);
 
+  // Submissão do formulário de entrada
   const handleNameSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name) return;
     startGame();
   };
 
+  // Inicializa uma nova partida
   const startGame = () => {
+    // Embaralha as perguntas e pega 10 aleatórias
     const shuffled = [...questions].sort(() => 0.5 - Math.random());
     setCurrentRunQuestions(shuffled.slice(0, 10));
     
+    // Reseta estado da partida
     setCurrentQIndex(0);
     setTotalScore(0);
     totalScoreRef.current = 0;
     setMultiplier(1.0);
     multiplierRef.current = 1.0;
     setGameState('PLAYING');
+    
+    // Prepara a primeira pergunta
     setupQuestion(0);
   };
 
+  // Prepara a tela para uma nova pergunta
   const setupQuestion = (index: number) => {
     setSelectedOption(null);
     setFeedbackScore(null);
     setTimeLeft(TOTAL_TIME_MS);
     
+    // Na primeira pergunta, dá um tempinho a mais para o usuário ler o enunciado
     if (index === 0) {
       setShowOptions(false);
       setTimeout(() => {
         setShowOptions(true);
         startTimer();
-      }, 5000);
+      }, 5000); // 5s de leitura antes de mostrar as opções e contar tempo
     } else {
       setShowOptions(true);
       startTimer();
     }
   };
 
+  // Inicia a contagem regressiva de alta performance (requestAnimationFrame)
   const startTimer = () => {
     startTimeRef.current = performance.now();
     
@@ -93,29 +115,33 @@ export const Game = () => {
       if (remaining > 0) {
         timerRef.current = requestAnimationFrame(tick);
       } else {
-        handleTimeout();
+        handleTimeout(); // Fim do tempo
       }
     };
     
     timerRef.current = requestAnimationFrame(tick);
   };
 
+  // Interrompe o cronômetro
   const stopTimer = () => {
     if (timerRef.current) {
       cancelAnimationFrame(timerRef.current);
     }
   };
 
+  // O que acontece quando o tempo esgota sem resposta
   const handleTimeout = () => {
     stopTimer();
+    // Reseta o combo
     setMultiplier(1.0);
     multiplierRef.current = 1.0;
     setFeedbackScore(0);
     showFeedbackAndAdvance();
   };
 
+  // Processa a escolha do usuário
   const handleOptionClick = (index: number) => {
-    if (selectedOption !== null || gameState !== 'PLAYING') return;
+    if (selectedOption !== null || gameState !== 'PLAYING') return; // Previne duplo clique
     
     stopTimer();
     setSelectedOption(index);
@@ -124,19 +150,23 @@ export const Game = () => {
     const isCorrect = index === currentRunQuestions[currentQIndex].correct_index;
     
     if (isCorrect) {
+      // Base de cálculo: mínimo 500, decaindo conforme o tempo gasto
       const basePoints = Math.max(500, 1000 - (0.05 * elapsed));
       const earned = Math.round(basePoints * multiplierRef.current);
       
+      // Atualiza a pontuação total
       const newScore = totalScoreRef.current + earned;
       setTotalScore(newScore);
       totalScoreRef.current = newScore;
       
       setFeedbackScore(earned);
       
+      // Aumenta o combo até o limite de 1.9x
       const newMult = Math.min(1.9, multiplierRef.current + 0.1);
       setMultiplier(newMult);
       multiplierRef.current = newMult;
     } else {
+      // Errou: zera o multiplicador
       setFeedbackScore(0);
       setMultiplier(1.0);
       multiplierRef.current = 1.0;

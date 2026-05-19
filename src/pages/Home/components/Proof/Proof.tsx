@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import styles from './Proof.module.css';
 
+// Lista de etapas (Timeline) descrevendo o funcionamento da plataforma
 const timelineSteps = [
   {
     id: 1,
@@ -24,6 +25,8 @@ const timelineSteps = [
   }
 ];
 
+// Seção de Social Proof (Prova Social) e Como Funciona
+// Apresenta a funcionalidade principal no formato de uma linha do tempo vertical
 export const Proof = () => {
   return (
     <section id="proof" className={styles.proofSection}>
@@ -39,6 +42,7 @@ export const Proof = () => {
       </div>
 
       <div className={styles.timeline}>
+        {/* Renderiza dinamicamente as etapas da timeline, alternando o lado (esquerda/direita) baseado no índice (isLeft) */}
         {timelineSteps.map((step, index) => {
           const isLeft = index % 2 === 0;
           return (
@@ -70,6 +74,9 @@ export const Proof = () => {
         })}
       </div>
 
+      </div>
+
+      {/* Box de depoimento do desenvolvedor/usuário (Social Proof) */}
       <motion.div 
         className={styles.testimonial}
         initial={{ opacity: 0, scale: 0.95 }}

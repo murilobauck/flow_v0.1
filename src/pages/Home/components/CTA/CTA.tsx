@@ -2,23 +2,29 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import styles from './CTA.module.css';
 
+// Componente Call to Action (CTA) para captura de leads (Lista de Espera)
 export const CTA = () => {
+  // Controle do formulário
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  // Estado para exibir a mensagem de sucesso após o envio
   const [submitted, setSubmitted] = useState(false);
 
+  // Submissão do formulário de Waitlist
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (name && email) {
       setSubmitted(true);
-      // Aqui integraria com backend
+      // TODO: Aqui integraria com backend (ex: Supabase, Firebase, etc) para salvar o lead
     }
   };
 
   return (
     <section id="waitlist" className={styles.ctaSection}>
+      {/* Background estilizado com efeito de espiral/swirl */}
       <div className={styles.ctaSwirlBg} />
       
+      {/* Card principal flutuante que anima ao aparecer na tela */}
       <motion.div 
         className={styles.floatingCard}
         initial={{ opacity: 0, y: 40 }}
@@ -57,6 +63,7 @@ export const CTA = () => {
           </ul>
         </div>
 
+        {/* Renderização condicional: Exibe feedback de sucesso se o formulário for enviado */}
         {submitted ? (
           <motion.div
             initial={{ opacity: 0, y: 10 }}

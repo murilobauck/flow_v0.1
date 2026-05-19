@@ -2,7 +2,9 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import styles from './GameCTA.module.css';
 
+// Componente "Call to Action" que redireciona o usuário para o Mini-Game
 export const GameCTA = () => {
+  // Hook de navegação do React Router para redirecionar entre páginas
   const navigate = useNavigate();
 
   return (
