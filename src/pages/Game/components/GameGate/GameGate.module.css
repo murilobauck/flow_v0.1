@@ -1,0 +1,176 @@
+@property --angle-gate {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.gateContainer {
+  position: relative;
+  width: 100%;
+  max-width: 580px;
+  background: var(--bg-card);
+  border-radius: 24px;
+  padding: 48px 32px;
+  text-align: center;
+  z-index: 1;
+}
+
+.gateContainer::after {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  border-radius: 25.5px;
+  background: conic-gradient(
+    from var(--angle-gate, 0deg),
+    #DA2265, #FF4D7A, #FE8F2A, #FF4D7A, #DA2265
+  );
+  z-index: -2;
+  animation: rotateBorderGate 5s linear infinite;
+  filter: blur(1px);
+}
+
+.gateContainer::before {
+  content: '';
+  position: absolute;
+  inset: 1.5px;
+  border-radius: 23px;
+  background: var(--bg-card);
+  z-index: -1;
+}
+
+@keyframes rotateBorderGate {
+  to { --angle-gate: 360deg; }
+}
+
+.gateTitle {
+  font-family: var(--font-display);
+  font-size: 36px;
+  margin-bottom: 16px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.gateSubtitle {
+  color: var(--text-secondary);
+  font-size: 15px;
+  margin-bottom: 32px;
+  line-height: 1.5;
+}
+
+.gateSubtitleWelcome {
+  color: var(--text-primary);
+  font-size: 17px;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+.gateSubtitleWelcome strong {
+  color: var(--brand);
+}
+
+.gateError {
+  background: rgba(255, 51, 102, 0.1);
+  border: 1px solid rgba(255, 51, 102, 0.3);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 24px;
+  color: #FF3366;
+  font-size: 14px;
+  text-align: left;
+}
+
+.btnLink {
+  background: transparent;
+  border: none;
+  color: var(--brand);
+  text-decoration: underline;
+  font-weight: 700;
+  margin-top: 8px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 14px;
+  display: inline-block;
+  transition: opacity 0.2s;
+}
+
+.btnLink:hover {
+  opacity: 0.9;
+}
+
+.btnResetGate {
+  background: transparent;
+  border: none;
+  color: var(--brand);
+  text-decoration: underline;
+  font-weight: 700;
+  font-size: 14px;
+  margin-top: 16px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  display: inline-block;
+}
+
+.btnResetGate:hover {
+  opacity: 0.9;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.input {
+  width: 100%;
+  padding: 16px 18px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(218, 34, 101, 0.15);
+}
+
+.input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.btnPrimary {
+  width: 100%;
+  padding: 16px;
+  background: var(--brand);
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: var(--glow-brand);
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.btnPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--glow-brand), var(--glow-brand-lg);
+}
+
+.btnPrimary:active {
+  transform: scale(0.97);
+}
+
+.btnPrimary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}

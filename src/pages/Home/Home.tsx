@@ -3,6 +3,7 @@ import { Hero } from './components/Hero/Hero';
 import { Proof } from './components/Proof/Proof';
 import { CTA } from './components/CTA/CTA';
 import { GameCTA } from './components/GameCTA/GameCTA';
+import { Leaderboard } from './components/Leaderboard/Leaderboard';
 import { FAQ } from './components/FAQ/FAQ';
 
 // Componente principal da Landing Page
@@ -22,6 +23,7 @@ export const Home = () => {
         <Proof />
         <CTA />
         <GameCTA />
+        <Leaderboard />
         <FAQ />
       </main>
       

@@ -22,14 +22,16 @@ export const Header = () => {
     // Aplica a classe 'scrolled' condicionalmente
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
       {/* Logotipo que contém um símbolo (logotipoImg) e texto (wordmarkImg) */}
-      <div className={styles.logo}>
+      <Link to="/" className={styles.logo}>
         <img src="/logotipo.svg" alt="Flow" className={styles.logotipoImg} />
         <img src="/wordmark.svg" alt="Flow" className={styles.wordmarkImg} />
-      </div>
+      </Link>
       {/* Botão de Call To Action que rola suavemente para a seção de waitlist */}
-      <Link to="#waitlist" className={styles.cta} onClick={(e) => {
-        e.preventDefault();
-        document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' });
+      <Link to="/#waitlist" className={styles.cta} onClick={(e) => {
+        if (window.location.pathname === '/') {
+          e.preventDefault();
+          document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' });
+        }
       }}>
         Acesso antecipado
       </Link>

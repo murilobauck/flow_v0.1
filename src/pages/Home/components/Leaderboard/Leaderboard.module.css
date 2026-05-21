@@ -1,0 +1,108 @@
+@property --angle-lead {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.section {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 64px auto;
+  padding: 0 24px;
+}
+
+.rankingContainer {
+  position: relative;
+  background: var(--bg-card);
+  border-radius: 24px;
+  padding: 40px 32px;
+  z-index: 1;
+}
+
+.rankingContainer::after {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  border-radius: 25.5px;
+  background: conic-gradient(
+    from var(--angle-lead, 0deg),
+    #DA2265, #FF4D7A, #FE8F2A, #FF4D7A, #DA2265
+  );
+  z-index: -2;
+  animation: rotateBorderLead 5s linear infinite;
+  filter: blur(1px);
+}
+
+.rankingContainer::before {
+  content: '';
+  position: absolute;
+  inset: 1.5px;
+  border-radius: 23px;
+  background: var(--bg-card);
+  z-index: -1;
+}
+
+@keyframes rotateBorderLead {
+  to { --angle-lead: 360deg; }
+}
+
+.rankingTitle {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border-strong);
+  padding-bottom: 16px;
+  text-align: center;
+  color: var(--text-primary);
+}
+
+.rankingList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.rankingItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  font-size: 16px;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+}
+
+.rankingItem:last-child {
+  border-bottom: none;
+}
+
+.rankingRank {
+  width: 40px;
+  text-align: left;
+  color: var(--text-secondary);
+  font-weight: 700;
+}
+
+.rankingName {
+  flex: 1;
+  text-align: left;
+}
+
+.rankingScore {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--brand);
+}
+
+.loading {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 24px 0;
+}
+
+.emptyState {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 24px 0;
+}
